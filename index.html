@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЭлитАтелье - Профессиональный пошив и ремонт одежды</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5d4037;
+            --primary-light: #8d6e63;
+            --secondary: #d7ccc8;
+            --accent: #ffab91;
+            --text: #3e2723;
+            --light: #efebe9;
+            --white: #fff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(rgba(93, 64, 55, 0.9), rgba(93, 64, 55, 0.9)), url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: var(--white);
+            padding: 30px 0;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-btn {
+            background: var(--accent);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .auth-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: var(--white);
+            transform: translateY(-3px);box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            background: var(--white);
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--primary-light);
+            top: 50%;
+            left: 0;
+            z-index: 0;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            margin-bottom: 30px;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .card:hover .card-img img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Auth Forms */
+        .auth-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .auth-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--secondary);
+            border-radius: 4px;
+            font-family: 'Raleway', sans-serif;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .form-footer a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }.footer-column ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            border-top: 1px solid var(--primary-light);
+            padding-top: 20px;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 10px 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Элит<span>Ателье</span></div>
+                <nav>
+                    <ul>
+                        <li><a href="#" data-section="home">Главная</a></li>
+                        <li><a href="#" data-section="services">Услуги</a></li>
+                        <li><a href="#" data-section="partners">Партнеры</a></li>
+                        <li><a href="#" data-section="clients">Клиенты</a></li>
+                        <li><a href="#" data-section="resources">Ресурсы</a></li>
+                        <li><a href="#" data-section="channels">Каналы</a></li>
+                        <li><a href="#" data-section="contacts">Контакты</a></li>
+                        <li><a href="#" data-section="login" class="auth-btn" id="auth-btn">Вход</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="container">
+                    <h1>Искусство пошива и ремонта одежды</h1>
+                    <p>Используем только лучшие материалы и оборудование для создания идеальной одежды и профессионального ремонта</p>
+                    <a href="#" data-section="register" class="btn">Начать работу</a>
+                </div>
+            </div>
+            
+            <div class="container">
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\пошив одежды.jpg" alt="Пошив одежды">
+                        </div>
+                        <div class="card-content">
+                            <h3>Индивидуальный пошив</h3>
+                            <p>Создаем одежду по вашим меркам и эскизам с использованием качественных материалов</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\ремонт.jpg" alt="Ремонт одежды">
+                        </div>
+                        <div class="card-content">
+                            <h3>Профессиональный ремонт</h3>
+                            <p>Восстанавливаем одежду любой сложности - от замены молний до сложного ремонта</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img"><img src="C:\Users\student\Downloads\сотрудничества.jpg" alt="Сотрудничество">
+                        </div>
+                        <div class="card-content">
+                            <h3>Сотрудничество</h3>
+                            <p>Работаем с дизайнерами, моделями и рекламными агентствами</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="section">
+            <div class="container">
+                <div class="auth-container">
+                    <h2>Регистрация</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Пароль</label>
+                            <input type="password" id="password" required>
+                        </div>
+                        <button type="submit" class="btn">Зарегистрироваться</button>
+                        <div class="form-footer">
+                            <p>Уже есть аккаунт? <a href="#" data-section="login">Войти</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="section">
+            <div class="container">
+                <div class="auth-container">
+                    <h2>Вход</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Пароль</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn">Войти</button>
+                        <div class="form-footer">
+                            <p>Нет аккаунта? <a href="#" data-section="register">Зарегистрироваться</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Наши услуги</h2>
+                </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Пошив одежды">
+                        </div>
+                        <div class="card-content">
+                            <h3>Пошив одежды</h3>
+                            <p>Создаем одежду по индивидуальным меркам с использованием качественных материалов от наших партнеров.</p>
+                            <ul>
+                                <li>Вечерние платья</li>
+                                <li>Костюмы и блейзеры</li>
+                                <li>Верхняя одежда</li>
+                                <li>Корпоративная одежда</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img"><img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Ремонт одежды">
+                        </div>
+                        <div class="card-content">
+                            <h3>Ремонт одежды</h3>
+                            <p>Профессиональный ремонт любой сложности с гарантией качества.</p>
+                            <ul>
+                                <li>Замена молний и фурнитуры</li>
+                                <li>Ремонт порванных изделий</li>
+                                <li>Ушивание/расширение</li>
+                                <li>Реставрация старых вещей</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Дизайнерские услуги">
+                        </div>
+                        <div class="card-content">
+                            <h3>Дизайнерские услуги</h3>
+                            <p>Сотрудничество с дизайнерами и стилистами для создания уникальных коллекций.</p>
+                            <ul>
+                                <li>Разработка дизайна</li>
+                                <li>Консультации стилиста</li>
+                                <li>Создание образов</li>
+                                <li>Пошив небольших коллекций</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section id="partners" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Наши партнеры</h2>
+                </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\комп.jpg" alt="Ораш">
+                        </div>
+                        <div class="card-content">
+                            <h3>Компания "Ораш"</h3>
+                            <p>Наш ключевой партнер по поставкам профессионального швейного оборудования. Благодаря сотрудничеству с "Ораш" мы используем только лучшие швейные машины, что гарантирует высокое качество пошива.</p>
+                            <p>Сотрудничаем с 2015 года.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Хоруг">
+                        </div>
+                        <div class="card-content">
+                            <h3>Компания "Хоруг"</h3>
+                            <p>Основной поставщик тканей и материалов для нашего ателье. "Хоруг" предоставляет нам широкий ассортимент качественных тканей и нитей всех цветов, что позволяет реализовывать любые дизайнерские задумки.</p>
+                            <p>Сотрудничаем с 2016 года.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clients Section -->
+        <section id="clients" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Наши клиенты</h2>
+                </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Модели">
+                        </div>
+                        <div class="card-content">
+                            <h3>Модели и агентства</h3>
+                            <p>Сотрудничаем с моделями и модельными агентствами, создавая уникальные образы для показов и фотосессий.</p>
+                            <ul>
+                                <li>Пошив конкурсных нарядов</li>
+                                <li>Создание концептуальных образов</li>
+                                <li>Эксклюзивные дизайнерские решения</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\дом.jpg" alt="Дом ателье">
+                        </div>
+                        <div class="card-content">
+                            <h3>Дом ателье</h3>
+                            <p>Обслуживаем частных клиентов, предлагая индивидуальный подход и высокое качество услуг.</p>
+                            <ul>
+                                <li>Пошив на заказ</li>
+                                <li>Ремонт и переделка одежды</li>
+                                <li>Консультации стилиста</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Банеры">
+                        </div>
+                        <div class="card-content">
+                            <h3>Рекламные агентства</h3>
+                            <p>Производим баннеры и рекламные конструкции из тканей для различных мероприятий и промоакций.</p>
+                            <ul>
+                                <li>Печать на тканях</li>
+                                <li>Создание объемных конструкций</li>
+                                <li>Оформление мероприятий</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Наши ресурсы</h2>
+                </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\Профессиональное оборудование.jpg" alt="Швейные машины">
+                        </div>
+                        <div class="card-content">
+                            <h3>Профессиональное оборудование</h3>
+                            <p>Используем швейные машины промышленного класса от компании "Ораш", что позволяет нам работать с любыми типами тканей и выполнять сложные операции.</p>
+                            <ul>
+                                <li>Промышленные швейные машины</li>
+                                <li>Оверлоки и распошивальные машины</li>
+                                <li>Специальное оборудование для сложных операций</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\Качественные материалы.jpg" alt="Ткани">
+                        </div>
+                        <div class="card-content">
+                            <h3>Качественные материалы</h3><p>Работаем только с проверенными материалами от компании "Хоруг", что гарантирует долговечность и презентабельный вид наших изделий.</p>
+                            <ul>
+                                <li>Натуральные и синтетические ткани</li>
+                                <li>Нитки всех цветов и типов</li>
+                                <li>Фурнитура и аксессуары</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\Инструменты и аксессуары.avif" alt="Инструменты">
+                        </div>
+                        <div class="card-content">
+                            <h3>Инструменты и аксессуары</h3>
+                            <p>В нашем распоряжении все необходимые инструменты для качественного пошива и ремонта одежды.</p>
+                            <ul>
+                                <li>Профессиональные ножницы</li>
+                                <li>Измерительные инструменты</li>
+                                <li>Вспомогательные приспособления</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Channels Section -->
+        <section id="channels" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Каналы сбыта</h2>
+                </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\Онлайн-магазин.jpg" alt="Онлайн магазин">
+                        </div>
+                        <div class="card-content">
+                            <h3>Онлайн-магазин</h3>
+                            <p>Принимаем заказы через наш интернет-магазин, что позволяет клиентам удобно оформлять заказы и отслеживать их выполнение.</p>
+                            <ul>
+                                <li>Каталог услуг</li>
+                                <li>Онлайн-консультации</li>
+                                <li>Система отслеживания заказов</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="C:\Users\student\Downloads\Сотрудничество с дизайнерами.jpg" alt="Дизайнеры">
+                        </div>
+                        <div class="card-content">
+                            <h3>Сотрудничество с дизайнерами</h3>
+                            <p>Работаем напрямую с дизайнерами, реализуя их творческие задумки в качественные изделия.</p>
+                            <ul>
+                                <li>Пошив небольших коллекций</li>
+                                <li>Экспериментальные проекты</li>
+                                <li>Консультации по технологиям</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Стилисты">
+                        </div>
+                        <div class="card-content">
+                            <h3>Работа со стилистами</h3>
+                            <p>Создаем индивидуальные образы по запросу стилистов для различных мероприятий и проектов.</p>
+                            <ul>
+                                <li>Подбор материалов</li><li>Создание уникальных вещей</li>
+                                <li>Адаптация существующей одежды</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section id="contacts" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Контакты</h2>
+                </div>
+                
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Наше ателье">
+                        </div>
+                        <div class="card-content">
+                            <h3>Наше ателье</h3>
+                            <p>Мы находимся в центре города, в удобном и доступном месте.</p>
+                            <ul>
+                                <li><strong>Адрес:</strong> г. Москва, ул. Ткацкая, д. 42</li>
+                                <li><strong>Телефон:</strong> +7 (495) 123-45-67</li>
+                                <li><strong>Email:</strong> info@elite-atelier.ru</li>
+                                <li><strong>Часы работы:</strong> Пн-Пт: 9:00-19:00, Сб: 10:00-16:00</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Форма обратной связи">
+                        </div>
+                        <div class="card-content">
+                            <h3>Обратная связь</h3>
+                            <form id="contact-form">
+                                <div class="form-group">
+                                    <label for="contact-name">Ваше имя</label>
+                                    <input type="text" id="contact-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-email">Email</label>
+                                    <input type="email" id="contact-email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-message">Сообщение</label>
+                                    <textarea id="contact-message" rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="btn">Отправить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>ЭлитАтелье</h3>
+                    <p>Профессиональный пошив и ремонт одежды с 2015 года.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Услуги</h3>
+                    <ul>
+                        <li><a href="#" data-section="services">Пошив одежды</a></li>
+                        <li><a href="#" data-section="services">Ремонт одежды</a></li>
+                        <li><a href="#" data-section="services">Дизайнерские услуги</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li>г. Москва, ул. Ткацкая, д. 42</li>
+                        <li>+7 (495) 123-45-67</li>
+                        <li>info@elite-atelier.ru</li></ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>Соцсети</h3>
+                        <ul>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">VK</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2024 ЭлитАтелье. Все права защищены.</p>
+                </div>
+            </div>
+        </footer>
+    
+        <script>
+            // Текущий пользователь
+            let currentUser = null;
+            
+            // Проверка авторизации при загрузке
+            document.addEventListener('DOMContentLoaded', function() {
+                // Проверяем, есть ли сохраненный пользователь
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    currentUser = JSON.parse(savedUser);
+                    updateAuthState();
+                }
+                
+                // Показываем главную страницу
+                showSection('home');
+                
+                // Обработчики навигации
+                document.querySelectorAll('[data-section]').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const sectionId = this.getAttribute('data-section');
+                        
+                        // Проверка доступа для защищенных разделов
+                        const protectedSections = ['services', 'partners', 'clients', 'resources', 'channels'];
+                        if (protectedSections.includes(sectionId) && !currentUser) {
+                            alert('Для доступа к этому разделу необходимо авторизоваться');
+                            showSection('login');
+                            return;
+                        }
+                        
+                        showSection(sectionId);
+                    });
+                });
+                
+                // Обработчик регистрации
+                document.getElementById('register-form')?.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    registerUser();
+                });
+                
+                // Обработчик входа
+                document.getElementById('login-form')?.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    loginUser();
+                });
+                
+                // Обработчик формы обратной связи
+                document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('contact-name').value;
+                    const email = document.getElementById('contact-email').value;
+                    const message = document.getElementById('contact-message').value;
+                    
+                    alert(`Спасибо, ${name}! Ваше сообщение отправлено. Мы свяжемся с вами по email ${email} в ближайшее время.`);
+                    this.reset();
+                });
+            });
+            
+            // Показать выбранный раздел
+            function showSection(sectionId) {
+                // Скрываем все разделы
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Показываем выбранный раздел
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Прокрутка вверх
+            window.scrollTo(0, 0);
+            
+            // Обновляем состояние авторизации
+            updateAuthState();
+        }
+        
+        // Регистрация нового пользователя
+        function registerUser() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Проверяем, нет ли уже такого пользователя
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const userExists = users.some(user => user.email === email);
+            
+            if (userExists) {
+                alert('Пользователь с таким email уже зарегистрирован!');
+                return;
+            }
+            
+            // Сохраняем нового пользователя
+            const newUser = { name, email, password };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Автоматически входим
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            alert(`Регистрация прошла успешно! Добро пожаловать, ${name}!`);
+            showSection('home');
+        }
+        
+        // Вход пользователя
+        function loginUser() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(user => user.email === email && user.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                alert(`Вход выполнен успешно! Добро пожаловать, ${user.name}!`);
+                showSection('home');
+            } else {
+                alert('Неверный email или пароль!');
+            }
+        }
+        
+        // Обновление состояния авторизации
+        function updateAuthState() {
+            const authBtn = document.getElementById('auth-btn');
+            
+            if (currentUser) {
+                authBtn.textContent = 'Выйти';
+                authBtn.setAttribute('data-section', 'logout');
+                
+                // Обработчик выхода
+                authBtn.onclick = function(e) {
+                    e.preventDefault();
+                    currentUser = null;
+                    localStorage.removeItem('currentUser');
+                    alert('Вы вышли из системы');
+                    showSection('home');
+                };
+            } else {
+                authBtn.textContent = 'Вход';
+                authBtn.setAttribute('data-section', 'login');
+                authBtn.onclick = function(e) {
+                    e.preventDefault();
+                    showSection('login');
+                };
+            }
+        }
+    </script>
+</body>
+</html>
+
+                
